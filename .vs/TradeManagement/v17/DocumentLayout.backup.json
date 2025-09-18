@@ -1,0 +1,248 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Preeti\\C#\\TradeManagement\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|c:\\users\\preeti\\c#\\trademanagement\\trademanagement\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|solutionrelative:trademanagement\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|c:\\users\\preeti\\c#\\trademanagement\\trademanagement\\services\\tradeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|solutionrelative:trademanagement\\services\\tradeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|c:\\users\\preeti\\c#\\trademanagement\\trademanagement\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|solutionrelative:trademanagement\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|c:\\users\\preeti\\c#\\trademanagement\\trademanagement\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|solutionrelative:trademanagement\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|c:\\users\\preeti\\c#\\trademanagement\\trademanagement\\trademanagement.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|solutionrelative:trademanagement\\trademanagement.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|c:\\users\\preeti\\c#\\trademanagement\\trademanagement\\controllers\\portfoliocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|solutionrelative:trademanagement\\controllers\\portfoliocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|c:\\users\\preeti\\c#\\trademanagement\\trademanagement\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|solutionrelative:trademanagement\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|c:\\users\\preeti\\c#\\trademanagement\\trademanagement\\controllers\\instrumentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|solutionrelative:trademanagement\\controllers\\instrumentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|c:\\users\\preeti\\c#\\trademanagement\\trademanagement\\models\\trade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|solutionrelative:trademanagement\\models\\trade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|c:\\users\\preeti\\c#\\trademanagement\\trademanagement\\models\\portfolio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|solutionrelative:trademanagement\\models\\portfolio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|c:\\users\\preeti\\c#\\trademanagement\\trademanagement\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|solutionrelative:trademanagement\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|c:\\users\\preeti\\c#\\trademanagement\\trademanagement\\models\\mongodbsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|solutionrelative:trademanagement\\models\\mongodbsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|c:\\users\\preeti\\c#\\trademanagement\\trademanagement\\models\\instrument.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|solutionrelative:trademanagement\\models\\instrument.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|c:\\users\\preeti\\c#\\trademanagement\\trademanagement\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4948F142-DA4D-4211-A9B0-DAF9C8D4348A}|TradeManagement\\TradeManagement.csproj|solutionrelative:trademanagement\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TradeManagement.csproj",
+              "DocumentMoniker": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\TradeManagement.csproj",
+              "RelativeDocumentMoniker": "TradeManagement\\TradeManagement.csproj",
+              "ToolTip": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\TradeManagement.csproj",
+              "RelativeToolTip": "TradeManagement\\TradeManagement.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAQwBIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-09-18T06:26:43.045Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "OrdersController.cs",
+              "DocumentMoniker": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Controllers\\OrdersController.cs",
+              "RelativeDocumentMoniker": "TradeManagement\\Controllers\\OrdersController.cs",
+              "ToolTip": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Controllers\\OrdersController.cs",
+              "RelativeToolTip": "TradeManagement\\Controllers\\OrdersController.cs",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAQwFgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T10:13:23.995Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TradeService.cs",
+              "DocumentMoniker": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Services\\TradeService.cs",
+              "RelativeDocumentMoniker": "TradeManagement\\Services\\TradeService.cs",
+              "ToolTip": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Services\\TradeService.cs",
+              "RelativeToolTip": "TradeManagement\\Services\\TradeService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T10:14:55.53Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "InstrumentsController.cs",
+              "DocumentMoniker": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Controllers\\InstrumentsController.cs",
+              "RelativeDocumentMoniker": "TradeManagement\\Controllers\\InstrumentsController.cs",
+              "ToolTip": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Controllers\\InstrumentsController.cs",
+              "RelativeToolTip": "TradeManagement\\Controllers\\InstrumentsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T10:12:52.671Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\appsettings.json",
+              "RelativeDocumentMoniker": "TradeManagement\\appsettings.json",
+              "ToolTip": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\appsettings.json",
+              "RelativeToolTip": "TradeManagement\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-09-18T09:05:06.884Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "TradeManagement\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "TradeManagement\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T09:30:25.033Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Program.cs",
+              "RelativeDocumentMoniker": "TradeManagement\\Program.cs",
+              "ToolTip": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Program.cs",
+              "RelativeToolTip": "TradeManagement\\Program.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACMAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T09:21:35.343Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "MongoDbSettings.cs",
+              "DocumentMoniker": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Models\\MongoDbSettings.cs",
+              "RelativeDocumentMoniker": "TradeManagement\\Models\\MongoDbSettings.cs",
+              "ToolTip": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Models\\MongoDbSettings.cs",
+              "RelativeToolTip": "TradeManagement\\Models\\MongoDbSettings.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T09:17:58.294Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PortfolioController.cs",
+              "DocumentMoniker": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Controllers\\PortfolioController.cs",
+              "RelativeDocumentMoniker": "TradeManagement\\Controllers\\PortfolioController.cs",
+              "ToolTip": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Controllers\\PortfolioController.cs",
+              "RelativeToolTip": "TradeManagement\\Controllers\\PortfolioController.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAQwBwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T10:13:57.97Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Instrument.cs",
+              "DocumentMoniker": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Models\\Instrument.cs",
+              "RelativeDocumentMoniker": "TradeManagement\\Models\\Instrument.cs",
+              "ToolTip": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Models\\Instrument.cs",
+              "RelativeToolTip": "TradeManagement\\Models\\Instrument.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T09:25:29.662Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Order.cs",
+              "DocumentMoniker": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Models\\Order.cs",
+              "RelativeDocumentMoniker": "TradeManagement\\Models\\Order.cs",
+              "ToolTip": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Models\\Order.cs",
+              "RelativeToolTip": "TradeManagement\\Models\\Order.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAA4wBgAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T09:26:05.787Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Portfolio.cs",
+              "DocumentMoniker": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Models\\Portfolio.cs",
+              "RelativeDocumentMoniker": "TradeManagement\\Models\\Portfolio.cs",
+              "ToolTip": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Models\\Portfolio.cs",
+              "RelativeToolTip": "TradeManagement\\Models\\Portfolio.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAiwBIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T09:26:37.248Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Trade.cs",
+              "DocumentMoniker": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Models\\Trade.cs",
+              "RelativeDocumentMoniker": "TradeManagement\\Models\\Trade.cs",
+              "ToolTip": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Models\\Trade.cs",
+              "RelativeToolTip": "TradeManagement\\Models\\Trade.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAA4wBIAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T06:30:03.884Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Models\\User.cs",
+              "RelativeDocumentMoniker": "TradeManagement\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\Preeti\\C#\\TradeManagement\\TradeManagement\\Models\\User.cs",
+              "RelativeToolTip": "TradeManagement\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T09:24:29.673Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
