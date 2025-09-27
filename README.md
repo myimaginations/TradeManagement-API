@@ -1,47 +1,137 @@
-**Trade Management API**
-This project is a backend API for a trade management system, built using ASP.NET Core and MongoDB. It provides a set of RESTful APIs to manage users, track stock instruments, process buy and sell orders, and maintain user portfolios. The application is designed to demonstrate full CRUD (Create, Read, Update, Delete) functionality with a NoSQL database.
+# Trade Management System API
 
-Features
-User Management: Create, view, update, and delete user accounts. Each user has a unique ID, a username, and a balance.
-Instrument Data: Stores a list of available stock instruments (e.g., AAPL, TSLA, BTC) with their current prices.
-Order Processing: Users can place BUY and SELL orders for any available instrument. The API handles the transaction logic, updating the user's balance and holdings.
-Portfolio Tracking: Maintains a record of each user's stock holdings and quantities.
-Order History: Logs all buy and sell orders for each user, providing a complete transaction history.
+## Project Overview
+The **Trade Management System API** is a secure backend system for managing trades, orders, portfolios, and instruments with **role-based authentication**. The API is built using **ASP.NET Core 8**, **MongoDB**, and **JWT authentication**.  
 
-Technology Stack
-ASP.NET Core 6: The web framework for building the API.
-C#: The primary programming language.
-MongoDB: A flexible NoSQL database used for data persistence.
-MongoDB.Driver: The official .NET library for connecting to MongoDB.
-Swagger: Provides a user-friendly interface for documenting and testing the API endpoints.
+It supports multiple user roles (Admin, Trader, User) and implements **full CRUD operations** with proper authorization.
 
-Getting Started
-Follow these steps to get the project up and running on your local machine.
+---
 
-Prerequisites
-.NET 6 SDK
-MongoDB Atlas Account
-Git
+## Features
 
-Installation
-Clone the repository to your local machine: git clone https://github.com/myimaginations/TradeManagement-API
-Navigate to the project directory: cd TradeManagement
-Configure your MongoDB connection string in the appsettings.json file.
+### 1. User Management
+- Users can register with **username**, **password**, and **roles**.
+- Supported roles:
+  - **Admin** → Full CRUD access
+  - **Trader** → Trade-related operations
+  - **User** → Read-only access
+- Only **one Admin** allowed.
+- Users can have **multiple roles simultaneously**.
+- JWT tokens include:
+  - UserId
+  - Username
+  - Roles (array)
 
-Running the Application
-After configuring the database, run the application from your terminal: dotnet run
-This will start the API and open the Swagger UI in your browser, where you can test all the endpoints.
+### 2. Authentication & Authorization
+- **Login endpoint** returns JWT token.
+- Authorization enforced using `[Authorize(Roles="...")]`.
+- Swagger UI supports JWT authentication after entering the token.
+
+### 3. CRUD Operations
+All entities have full CRUD operations with role-based access:
+
+- **Users**
+  - Admin: full CRUD
+  - Others: read-only
+
+- **Trades**
+  - Admin & Trader: full CRUD
+
+- **Orders**
+  - Admin & Trader: full CRUD
+
+- **Instruments**
+  - Admin & Trader: full CRUD
+
+- **Portfolio**
+  - Admin & Trader: full CRUD
+
+### 4. Security
+- **JWT-based authentication** (stateless)
+- **Password hashing** for secure storage
+- Role claims embedded in JWT for access control
+
+### 5. Technical Stack
+- **Backend:** ASP.NET Core 8 Web API
+- **Database:** MongoDB Atlas
+- **Authentication:** JWT
+- **Authorization:** Role-based `[Authorize]`
+- **API Testing:** Swagger UI / Postman
+- **Design Pattern:** Repository Pattern + Service Layer + Controller Layer
+
+---
+
+## Getting Started
+
+### Prerequisites
+- .NET 8 SDK
+- MongoDB (Atlas or local)
+- Visual Studio / VS Code / Rider
+- Postman or Swagger UI
+
+### Configuration
+1. Update `appsettings.json`:
+
+```json
+{
+  "MongoDbSettings": {
+    "ConnectionString": "<YOUR_MONGODB_CONNECTION_STRING>",
+    "DatabaseName": "TradeManagementDB",
+    "UsersCollectionName": "Users",
+    "TradesCollectionName": "Trades",
+    "OrdersCollectionName": "Orders",
+    "InstrumentsCollectionName": "Instruments",
+    "PortfoliosCollectionName": "Portfolios"
+  },
+  "Jwt": {
+    "Key": "<YOUR_SECRET_KEY>",
+    "Issuer": "TradeManagementAPI",
+    "Audience": "TradeManagementClient",
+    "ExpireMinutes": 60
+  },
+  "Cors": {
+    "AllowedOrigins": ["http://localhost:5173"]
+  }
+}
+
+Running the API
+# Restore packages
+dotnet restore
+# Build the project
+dotnet build
+# Run the API
+dotnet run
+
+Open Swagger UI at:
+http://localhost:<PORT>/swagger/index.html
 
 API Endpoints
-The API is structured around the following endpoints:
+Auth
+POST /api/Auth/register → Register a new user
+POST /api/Auth/login → Login and get JWT token
 
-Endpoint	HTTP Method	Description
-/api/Users	POST	Creates a new user account.
-/api/Users/{id}	GET	Retrieves a specific user by ID.
-/api/Users	GET	Retrieves a list of all users.
-/api/Users/{id}	PUT	Updates an existing user's information.
-/api/Users/{id}	DELETE	Deletes a user account.
-/api/Instruments	GET	Lists all available trading instruments.
-/api/Orders	POST	Places a new buy or sell order.
-/api/Orders/{userId}	GET	Retrieves a specific user's order history.
-/api/Portfolio/{userId}	GET	Retrieves a specific user's current stock holdings and balance.
+Users
+GET /api/Users → Get all users (Admin full, others read-only)
+GET /api/Users/{id} → Get user by ID
+PUT /api/Users/{id} → Update user (Admin only)
+DELETE /api/Users/{id} → Delete user (Admin only)
+Trades / Orders / Instruments / Portfolio
+Standard CRUD endpoints available
+
+Role-based access using [Authorize(Roles="...")]
+
+Notes
+Admin has full control over all entities.
+Traders can manage trade-related data.
+Users have read-only access.
+JWT tokens must be included in the Authorization header for protected routes:
+Authorization: Bearer <JWT_TOKEN>
+
+Future Improvements
+Integration with real trading APIs
+Frontend (React/Vue/Blazor) dashboards
+Advanced reporting for trades and portfolio
+
+License
+
+This project is free to use educational purpose.
