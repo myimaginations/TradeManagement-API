@@ -1,0 +1,403 @@
+Folder PATH listing
+Volume serial number is 7A12-15FC
+C:.
+¦   .gitignore
+¦   out.xml
+¦   README.md
+¦   st.txt
+¦   TradeManagement.sln
+¦   
++---.github
+¦   +---workflows
++---Controllers
+¦   ¦   Controllers.csproj
+¦   ¦   InstrumentsController.cs
+¦   ¦   OrdersController.cs
+¦   ¦   PortfolioController.cs
+¦   ¦   RouteAttribute.cs
+¦   ¦   TradesController.cs
+¦   ¦   UsersController.cs
+¦   ¦   
+¦   +---bin
+¦   ¦   +---Debug
+¦   ¦       +---net8.0
+¦   +---obj
+¦       ¦   Controllers.csproj.nuget.dgspec.json
+¦       ¦   Controllers.csproj.nuget.g.props
+¦       ¦   Controllers.csproj.nuget.g.targets
+¦       ¦   project.assets.json
+¦       ¦   project.nuget.cache
+¦       ¦   
+¦       +---Debug
+¦           +---net8.0
+¦               ¦   .NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+¦               ¦   Controllers.AssemblyInfo.cs
+¦               ¦   Controllers.AssemblyInfoInputs.cache
+¦               ¦   Controllers.assets.cache
+¦               ¦   Controllers.csproj.AssemblyReference.cache
+¦               ¦   Controllers.GeneratedMSBuildEditorConfig.editorconfig
+¦               ¦   Controllers.GlobalUsings.g.cs
+¦               ¦   
+¦               +---ref
+¦               +---refint
++---Models
+¦   ¦   Class1.cs
+¦   ¦   Instrument.cs
+¦   ¦   LoginRequest.cs
+¦   ¦   Models.csproj
+¦   ¦   MongoDbSettings.cs
+¦   ¦   Order.cs
+¦   ¦   Portfolio.cs
+¦   ¦   Trade.cs
+¦   ¦   User.cs
+¦   ¦   
+¦   +---bin
+¦   ¦   +---Debug
+¦   ¦       +---net8.0
+¦   ¦               Models.deps.json
+¦   ¦               Models.dll
+¦   ¦               Models.pdb
+¦   ¦               
+¦   +---obj
+¦       ¦   Models.csproj.nuget.dgspec.json
+¦       ¦   Models.csproj.nuget.g.props
+¦       ¦   Models.csproj.nuget.g.targets
+¦       ¦   project.assets.json
+¦       ¦   project.nuget.cache
+¦       ¦   
+¦       +---Debug
+¦           +---net8.0
+¦               ¦   .NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+¦               ¦   Models.AssemblyInfo.cs
+¦               ¦   Models.AssemblyInfoInputs.cache
+¦               ¦   Models.assets.cache
+¦               ¦   Models.csproj.AssemblyReference.cache
+¦               ¦   Models.csproj.BuildWithSkipAnalyzers
+¦               ¦   Models.csproj.CoreCompileInputs.cache
+¦               ¦   Models.csproj.FileListAbsolute.txt
+¦               ¦   Models.dll
+¦               ¦   Models.GeneratedMSBuildEditorConfig.editorconfig
+¦               ¦   Models.GlobalUsings.g.cs
+¦               ¦   Models.pdb
+¦               ¦   Models.sourcelink.json
+¦               ¦   
+¦               +---ref
+¦               ¦       Models.dll
+¦               ¦       
+¦               +---refint
+¦                       Models.dll
+¦                       
++---Repository
+¦   ¦   Class1.cs
+¦   ¦   IInstrumentRepository.cs
+¦   ¦   InstrumentRepository.cs
+¦   ¦   IOrderRepository.cs
+¦   ¦   IPortfolioRepository.cs
+¦   ¦   ITradeRepository.cs
+¦   ¦   IUserRepository.cs
+¦   ¦   OrderRepository.cs
+¦   ¦   PortfolioRepository.cs
+¦   ¦   Repositories.csproj
+¦   ¦   TradeRepository.cs
+¦   ¦   UserRepository.cs
+¦   ¦   
+¦   +---bin
+¦   ¦   +---Debug
+¦   ¦       +---net8.0
+¦   ¦               Models.dll
+¦   ¦               Models.pdb
+¦   ¦               Repositories.deps.json
+¦   ¦               Repositories.dll
+¦   ¦               Repositories.pdb
+¦   ¦               
+¦   +---obj
+¦       ¦   project.assets.json
+¦       ¦   project.nuget.cache
+¦       ¦   Repositories.csproj.nuget.dgspec.json
+¦       ¦   Repositories.csproj.nuget.g.props
+¦       ¦   Repositories.csproj.nuget.g.targets
+¦       ¦   Repository.csproj.nuget.dgspec.json
+¦       ¦   Repository.csproj.nuget.g.props
+¦       ¦   Repository.csproj.nuget.g.targets
+¦       ¦   
+¦       +---Debug
+¦           +---net8.0
+¦               ¦   .NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+¦               ¦   Reposito.787EC4B2.Up2Date
+¦               ¦   Repositories.AssemblyInfo.cs
+¦               ¦   Repositories.AssemblyInfoInputs.cache
+¦               ¦   Repositories.assets.cache
+¦               ¦   Repositories.csproj.AssemblyReference.cache
+¦               ¦   Repositories.csproj.BuildWithSkipAnalyzers
+¦               ¦   Repositories.csproj.CoreCompileInputs.cache
+¦               ¦   Repositories.csproj.FileListAbsolute.txt
+¦               ¦   Repositories.dll
+¦               ¦   Repositories.GeneratedMSBuildEditorConfig.editorconfig
+¦               ¦   Repositories.GlobalUsings.g.cs
+¦               ¦   Repositories.pdb
+¦               ¦   Repositories.sourcelink.json
+¦               ¦   Repository.AssemblyInfo.cs
+¦               ¦   Repository.AssemblyInfoInputs.cache
+¦               ¦   Repository.assets.cache
+¦               ¦   Repository.GeneratedMSBuildEditorConfig.editorconfig
+¦               ¦   Repository.GlobalUsings.g.cs
+¦               ¦   
+¦               +---ref
+¦               ¦       Repositories.dll
+¦               ¦       
+¦               +---refint
+¦                       Repositories.dll
+¦                       
++---Services
+¦   ¦   Class1.cs
+¦   ¦   ITradeService.cs
+¦   ¦   JwtService.cs
+¦   ¦   Services.csproj
+¦   ¦   TradeService.cs
+¦   ¦   
+¦   +---bin
+¦   ¦   +---Debug
+¦   ¦       +---net8.0
+¦   ¦               Models.dll
+¦   ¦               Models.pdb
+¦   ¦               Repositories.dll
+¦   ¦               Repositories.pdb
+¦   ¦               Services.deps.json
+¦   ¦               Services.dll
+¦   ¦               Services.pdb
+¦   ¦               
+¦   +---obj
+¦       ¦   project.assets.json
+¦       ¦   project.nuget.cache
+¦       ¦   Services.csproj.nuget.dgspec.json
+¦       ¦   Services.csproj.nuget.g.props
+¦       ¦   Services.csproj.nuget.g.targets
+¦       ¦   
+¦       +---Debug
+¦           +---net8.0
+¦               ¦   .NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+¦               ¦   Services.AssemblyInfo.cs
+¦               ¦   Services.AssemblyInfoInputs.cache
+¦               ¦   Services.assets.cache
+¦               ¦   Services.csproj.AssemblyReference.cache
+¦               ¦   Services.csproj.BuildWithSkipAnalyzers
+¦               ¦   Services.csproj.CoreCompileInputs.cache
+¦               ¦   Services.csproj.FileListAbsolute.txt
+¦               ¦   Services.csproj.Up2Date
+¦               ¦   Services.dll
+¦               ¦   Services.GeneratedMSBuildEditorConfig.editorconfig
+¦               ¦   Services.GlobalUsings.g.cs
+¦               ¦   Services.pdb
+¦               ¦   Services.sourcelink.json
+¦               ¦   
+¦               +---ref
+¦               ¦       Services.dll
+¦               ¦       
+¦               +---refint
+¦                       Services.dll
+¦                       
++---TradeManagement
+¦   ¦   appsettings.Development.json
+¦   ¦   appsettings.json
+¦   ¦   Program.cs
+¦   ¦   TradeManagement.csproj
+¦   ¦   TradeManagement.csproj.user
+¦   ¦   
+¦   +---bin
+¦   ¦   +---Debug
+¦   ¦   ¦   +---net8.0
+¦   ¦   ¦       ¦   appsettings.Development.json
+¦   ¦   ¦       ¦   appsettings.json
+¦   ¦   ¦       ¦   BCrypt.Net-Next.dll
+¦   ¦   ¦       ¦   Castle.Core.dll
+¦   ¦   ¦       ¦   DnsClient.dll
+¦   ¦   ¦       ¦   Microsoft.AspNetCore.Authentication.JwtBearer.dll
+¦   ¦   ¦       ¦   Microsoft.DotNet.PlatformAbstractions.dll
+¦   ¦   ¦       ¦   Microsoft.Extensions.Configuration.Abstractions.dll
+¦   ¦   ¦       ¦   Microsoft.Extensions.Configuration.dll
+¦   ¦   ¦       ¦   Microsoft.Extensions.DependencyInjection.Abstractions.dll
+¦   ¦   ¦       ¦   Microsoft.Extensions.DependencyInjection.dll
+¦   ¦   ¦       ¦   Microsoft.Extensions.DependencyModel.dll
+¦   ¦   ¦       ¦   Microsoft.Extensions.Diagnostics.Abstractions.dll
+¦   ¦   ¦       ¦   Microsoft.Extensions.Hosting.Abstractions.dll
+¦   ¦   ¦       ¦   Microsoft.Extensions.Logging.Abstractions.dll
+¦   ¦   ¦       ¦   Microsoft.Extensions.ObjectPool.dll
+¦   ¦   ¦       ¦   Microsoft.Extensions.Options.dll
+¦   ¦   ¦       ¦   Microsoft.Extensions.Primitives.dll
+¦   ¦   ¦       ¦   Microsoft.IdentityModel.Abstractions.dll
+¦   ¦   ¦       ¦   Microsoft.IdentityModel.JsonWebTokens.dll
+¦   ¦   ¦       ¦   Microsoft.IdentityModel.Logging.dll
+¦   ¦   ¦       ¦   Microsoft.IdentityModel.Protocols.dll
+¦   ¦   ¦       ¦   Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+¦   ¦   ¦       ¦   Microsoft.IdentityModel.Tokens.dll
+¦   ¦   ¦       ¦   Microsoft.OpenApi.dll
+¦   ¦   ¦       ¦   Models.dll
+¦   ¦   ¦       ¦   Models.pdb
+¦   ¦   ¦       ¦   MongoDB.Bson.dll
+¦   ¦   ¦       ¦   MongoDB.Driver.dll
+¦   ¦   ¦       ¦   Newtonsoft.Json.dll
+¦   ¦   ¦       ¦   Repositories.dll
+¦   ¦   ¦       ¦   Repositories.pdb
+¦   ¦   ¦       ¦   Services.dll
+¦   ¦   ¦       ¦   Services.pdb
+¦   ¦   ¦       ¦   SharpCompress.dll
+¦   ¦   ¦       ¦   Snappier.dll
+¦   ¦   ¦       ¦   Swashbuckle.AspNetCore.Swagger.dll
+¦   ¦   ¦       ¦   Swashbuckle.AspNetCore.SwaggerGen.dll
+¦   ¦   ¦       ¦   Swashbuckle.AspNetCore.SwaggerUI.dll
+¦   ¦   ¦       ¦   System.IdentityModel.Tokens.Jwt.dll
+¦   ¦   ¦       ¦   TradeManagement.deps.json
+¦   ¦   ¦       ¦   TradeManagement.dll
+¦   ¦   ¦       ¦   TradeManagement.exe
+¦   ¦   ¦       ¦   TradeManagement.pdb
+¦   ¦   ¦       ¦   TradeManagement.runtimeconfig.json
+¦   ¦   ¦       ¦   TradeManagement.staticwebassets.endpoints.json
+¦   ¦   ¦       ¦   ZstdSharp.dll
+¦   ¦   ¦       ¦   
+¦   ¦   ¦       +---runtimes
+¦   ¦   ¦       ¦   +---win
+¦   ¦   ¦       ¦       +---lib
+¦   ¦   ¦       ¦           +---net8.0
+¦   ¦   ¦       +---UserSeeder
+¦   ¦   ¦           +---obj
+¦   ¦   ¦                   project.assets.json
+¦   ¦   ¦                   UserSeeder.csproj.nuget.dgspec.json
+¦   ¦   ¦                   
+¦   ¦   +---Release
+¦   ¦       +---net8.0
+¦   +---Controllers
+¦   ¦       AuthController.cs
+¦   ¦       InstrumentsController.cs
+¦   ¦       OrdersController.cs
+¦   ¦       PortfolioController.cs
+¦   ¦       TradesController.cs
+¦   ¦       UsersController.cs
+¦   ¦       
+¦   +---DTOs
+¦   ¦       UserResponseDto.cs
+¦   ¦       
+¦   +---obj
+¦   ¦   ¦   project.assets.json
+¦   ¦   ¦   project.nuget.cache
+¦   ¦   ¦   TradeManagement.csproj.nuget.dgspec.json
+¦   ¦   ¦   TradeManagement.csproj.nuget.g.props
+¦   ¦   ¦   TradeManagement.csproj.nuget.g.targets
+¦   ¦   ¦   
+¦   ¦   +---Debug
+¦   ¦   ¦   +---net8.0
+¦   ¦   ¦       ¦   .NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+¦   ¦   ¦       ¦   ApiEndpoints.json
+¦   ¦   ¦       ¦   apphost.exe
+¦   ¦   ¦       ¦   rjsmcshtml.dswa.cache.json
+¦   ¦   ¦       ¦   rjsmrazor.dswa.cache.json
+¦   ¦   ¦       ¦   rpswa.dswa.cache.json
+¦   ¦   ¦       ¦   staticwebassets.build.endpoints.json
+¦   ¦   ¦       ¦   staticwebassets.build.json
+¦   ¦   ¦       ¦   staticwebassets.build.json.cache
+¦   ¦   ¦       ¦   staticwebassets.references.upToDateCheck.txt
+¦   ¦   ¦       ¦   staticwebassets.removed.txt
+¦   ¦   ¦       ¦   TradeMan.07E0A75D.Up2Date
+¦   ¦   ¦       ¦   TradeManagement.AssemblyInfo.cs
+¦   ¦   ¦       ¦   TradeManagement.AssemblyInfoInputs.cache
+¦   ¦   ¦       ¦   TradeManagement.assets.cache
+¦   ¦   ¦       ¦   TradeManagement.csproj.AssemblyReference.cache
+¦   ¦   ¦       ¦   TradeManagement.csproj.BuildWithSkipAnalyzers
+¦   ¦   ¦       ¦   TradeManagement.csproj.CoreCompileInputs.cache
+¦   ¦   ¦       ¦   TradeManagement.csproj.FileListAbsolute.txt
+¦   ¦   ¦       ¦   TradeManagement.dll
+¦   ¦   ¦       ¦   TradeManagement.GeneratedMSBuildEditorConfig.editorconfig
+¦   ¦   ¦       ¦   TradeManagement.genruntimeconfig.cache
+¦   ¦   ¦       ¦   TradeManagement.GlobalUsings.g.cs
+¦   ¦   ¦       ¦   TradeManagement.MvcApplicationPartsAssemblyInfo.cache
+¦   ¦   ¦       ¦   TradeManagement.MvcApplicationPartsAssemblyInfo.cs
+¦   ¦   ¦       ¦   TradeManagement.pdb
+¦   ¦   ¦       ¦   TradeManagement.sourcelink.json
+¦   ¦   ¦       ¦   
+¦   ¦   ¦       +---EndpointInfo
+¦   ¦   ¦       ¦       TradeManagement.json
+¦   ¦   ¦       ¦       TradeManagement.OpenApiFiles.cache
+¦   ¦   ¦       ¦       
+¦   ¦   ¦       +---ref
+¦   ¦   ¦       ¦       TradeManagement.dll
+¦   ¦   ¦       ¦       
+¦   ¦   ¦       +---refint
+¦   ¦   ¦       ¦       TradeManagement.dll
+¦   ¦   ¦       ¦       
+¦   ¦   ¦       +---staticwebassets
+¦   ¦   +---Release
+¦   ¦       +---net8.0
+¦   ¦           ¦   .NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+¦   ¦           ¦   TradeManagement.AssemblyInfo.cs
+¦   ¦           ¦   TradeManagement.AssemblyInfoInputs.cache
+¦   ¦           ¦   TradeManagement.assets.cache
+¦   ¦           ¦   TradeManagement.csproj.AssemblyReference.cache
+¦   ¦           ¦   TradeManagement.GeneratedMSBuildEditorConfig.editorconfig
+¦   ¦           ¦   TradeManagement.GlobalUsings.g.cs
+¦   ¦           ¦   
+¦   ¦           +---ref
+¦   ¦           +---refint
+¦   +---Properties
+¦   ¦       launchSettings.json
+¦   ¦       
+¦   +---UserSeeder
+¦       ¦   UserSeeder.csproj
+¦       ¦   
+¦       +---obj
+¦               project.assets.json
+¦               project.nuget.cache
+¦               UserSeeder.csproj.nuget.dgspec.json
+¦               UserSeeder.csproj.nuget.g.props
+¦               UserSeeder.csproj.nuget.g.targets
+¦               
++---TradeManagement.Test
+    ¦   Class1.cs
+    ¦   ControllersTests.cs
+    ¦   ModelsTests.cs
+    ¦   RepositoriesTests.cs
+    ¦   ServicesTests.cs
+    ¦   TradeManagement.Test.csproj
+    ¦   
+    +---bin
+    ¦   +---Debug
+    ¦       +---net8.0
+    ¦           ¦   .msCoverageSourceRootsMapping_TradeManagement.Test
+    ¦           ¦   
+    ¦           +---cs
+    ¦           +---de
+    ¦           +---es
+    ¦           +---fr
+    ¦           +---it
+    ¦           +---ja
+    ¦           +---ko
+    ¦           +---pl
+    ¦           +---pt-BR
+    ¦           +---ru
+    ¦           +---runtimes
+    ¦           ¦   +---win
+    ¦           ¦       +---lib
+    ¦           ¦           +---net8.0
+    ¦           +---tr
+    ¦           +---zh-Hans
+    ¦           +---zh-Hant
+    +---obj
+        ¦   project.assets.json
+        ¦   project.nuget.cache
+        ¦   TradeManagement.Test.csproj.nuget.dgspec.json
+        ¦   TradeManagement.Test.csproj.nuget.g.props
+        ¦   TradeManagement.Test.csproj.nuget.g.targets
+        ¦   
+        +---Debug
+            +---net8.0
+                ¦   .NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+                ¦   TradeManagement.Test.AssemblyInfo.cs
+                ¦   TradeManagement.Test.AssemblyInfoInputs.cache
+                ¦   TradeManagement.Test.assets.cache
+                ¦   TradeManagement.Test.csproj.AssemblyReference.cache
+                ¦   TradeManagement.Test.csproj.CoreCompileInputs.cache
+                ¦   TradeManagement.Test.csproj.FileListAbsolute.txt
+                ¦   TradeManagement.Test.GeneratedMSBuildEditorConfig.editorconfig
+                ¦   TradeManagement.Test.GlobalUsings.g.cs
+                ¦   TradeManagement.Test.sourcelink.json
+                ¦   
+                +---ref
+                +---refint

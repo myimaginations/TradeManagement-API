@@ -1,43 +1,74 @@
-﻿using TradeManagement.Models;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using TradeManagement.Models;
+using TradeManagement.Repositories;
 using TradeManagement.Services;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Controllers & Swagger
+// MongoDB settings from appsettings.json
+var mongoSettings = builder.Configuration.GetSection("MongoDbSettings").Get<MongoDbSettings>()
+                    ?? throw new Exception("MongoDB settings missing");
+
+// Add services
+builder.Services.AddSingleton(mongoSettings);
+builder.Services.AddSingleton<IUserRepository, UserRepository>();
+
+// JWT service
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+builder.Services.AddSingleton(new JwtService(
+    jwtSettings["Key"] ?? throw new Exception("JWT Key missing"),
+    jwtSettings["Issuer"] ?? throw new Exception("JWT Issuer missing"),
+    jwtSettings["Audience"] ?? throw new Exception("JWT Audience missing"),
+    int.Parse(jwtSettings["ExpireMinutes"] ?? "60")
+));
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// CORS
-builder.Services.AddCors(options =>
+// JWT Authentication
+builder.Services.AddAuthentication(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader());
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"] ?? ""))
+    };
 });
 
-// Bind MongoDbSettings to the "DatabaseSettings" section
-builder.Services.Configure<MongoDbSettings>(
-    builder.Configuration.GetSection("DatabaseSettings"));
-
-// Register Services
-builder.Services.AddSingleton<TradeService>();
+// CORS
+var corsOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? new string[] { };
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins(corsOrigins)
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
-// Middleware
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
-// Use CORS before other middleware
-app.UseCors("AllowAll");
-
-app.UseHttpsRedirection();
+app.UseCors();
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

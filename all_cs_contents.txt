@@ -1,0 +1,1790 @@
+===== Controllers\InstrumentsController.cs =====
+﻿using Microsoft.AspNetCore.Mvc;
+using Models;
+using Services;
+
+namespace Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class InstrumentsController : ControllerBase
+    {
+        private readonly TradeService _tradeService;
+
+        public InstrumentsController(TradeService tradeService)
+        {
+            _tradeService = tradeService;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Instrument>>> GetAll()
+        {
+            var instruments = await _tradeService.GetAllInstrumentsAsync();
+            return Ok(instruments);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Instrument>> GetById(string id)
+        {
+            var instrument = await _tradeService.GetInstrumentByIdAsync(id);
+            if (instrument == null) return NotFound($"Instrument with id {id} not found.");
+            return Ok(instrument);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Instrument>> Create(Instrument instrument)
+        {
+            var created = await _tradeService.CreateInstrumentAsync(instrument);
+            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(string id, Instrument instrument)
+        {
+            var updated = await _tradeService.UpdateInstrumentAsync(id, instrument);
+            if (!updated) return NotFound($"Instrument with id {id} not found.");
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(string id)
+        {
+            var deleted = await _tradeService.DeleteInstrumentAsync(id);
+            if (!deleted) return NotFound($"Instrument with id {id} not found.");
+            return NoContent();
+        }
+    }
+}
+
+===== Controllers\OrdersController.cs =====
+﻿using Microsoft.AspNetCore.Mvc;
+using TradeManagement.Models;
+using TradeManagement.Services;
+
+namespace TradeManagement.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class OrdersController : ControllerBase
+    {
+        private readonly TradeService _tradeService;
+
+        public OrdersController(TradeService tradeService)
+        {
+            _tradeService = tradeService;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Order>>> GetAll()
+        {
+            var orders = await _tradeService.GetAllOrdersAsync();
+            return Ok(orders);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Order>> GetById(string id)
+        {
+            var order = await _tradeService.GetOrderByIdAsync(id);
+            if (order == null) return NotFound($"Order with id {id} not found.");
+            return Ok(order);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Order>> Create(Order order)
+        {
+            var created = await _tradeService.CreateOrderAsync(order);
+            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(string id, Order order)
+        {
+            var updated = await _tradeService.UpdateOrderAsync(id, order);
+            if (!updated) return NotFound($"Order with id {id} not found.");
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(string id)
+        {
+            var deleted = await _tradeService.DeleteOrderAsync(id);
+            if (!deleted) return NotFound($"Order with id {id} not found.");
+            return NoContent();
+        }
+    }
+}
+
+===== Controllers\PortfolioController.cs =====
+﻿using Microsoft.AspNetCore.Mvc;
+using TradeManagement.Services;
+
+namespace TradeManagement.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class PortfolioController : ControllerBase
+    {
+        private readonly TradeService _tradeService;
+
+        public PortfolioController(TradeService tradeService)
+        {
+            _tradeService = tradeService;
+        }
+
+        // GET: api/Portfolio/{userId}
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<object>> GetPortfolio(string userId)
+        {
+            // Get user info (includes balance & portfolio)
+            var user = await _tradeService.GetUserByIdAsync(userId);
+            if (user == null)
+                return NotFound("User not found.");
+
+            // Return combined portfolio info
+            var response = new
+            {
+                UserId = user.Id,
+                Balance = user.Balance,
+                Holdings = user.Portfolio // Dictionary<string, int> Instrument -> Quantity
+            };
+
+            return Ok(response);
+        }
+    }
+}
+
+===== Controllers\TradesController.cs =====
+using Microsoft.AspNetCore.Mvc;
+using TradeManagement.Models;
+using TradeManagement.Services;
+
+namespace TradeManagement.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class TradesController : ControllerBase
+    {
+        private readonly TradeService _tradeService;
+
+        public TradesController(TradeService tradeService)
+        {
+            _tradeService = tradeService;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Trade>>> GetAll()
+        {
+            var trades = await _tradeService.GetAllTradesAsync();
+            return Ok(trades);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Trade>> GetById(string id)
+        {
+            var trade = await _tradeService.GetTradeByIdAsync(id);
+            if (trade == null) return NotFound($"Trade with id {id} not found.");
+            return Ok(trade);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Trade>> Create(Trade trade)
+        {
+            var created = await _tradeService.CreateTradeAsync(trade);
+            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(string id, Trade trade)
+        {
+            var updated = await _tradeService.UpdateTradeAsync(id, trade);
+            if (!updated) return NotFound($"Trade with id {id} not found.");
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(string id)
+        {
+            var deleted = await _tradeService.DeleteTradeAsync(id);
+            if (!deleted) return NotFound($"Trade with id {id} not found.");
+            return NoContent();
+        }
+    }
+}
+
+===== Controllers\UsersController.cs =====
+﻿using Microsoft.AspNetCore.Mvc;
+using TradeManagement.Models;
+using TradeManagement.Services;
+
+namespace TradeManagement.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class UsersController : ControllerBase
+    {
+        private readonly TradeService _tradeService;
+
+        public UsersController(TradeService tradeService)
+        {
+            _tradeService = tradeService;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<User>>> GetAll()
+        {
+            var users = await _tradeService.GetAllUsersAsync();
+            return Ok(users);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<User>> GetById(string id)
+        {
+            var user = await _tradeService.GetUserByIdAsync(id);
+            if (user == null) return NotFound($"User with id {id} not found.");
+            return Ok(user);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<User>> Create(User user)
+        {
+            var created = await _tradeService.CreateUserAsync(user);
+            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(string id, User user)
+        {
+            var updated = await _tradeService.UpdateUserAsync(id, user);
+            if (!updated) return NotFound($"User with id {id} not found.");
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(string id)
+        {
+            var deleted = await _tradeService.RemoveUserAsync(id);
+            if (!deleted) return NotFound($"User with id {id} not found.");
+            return NoContent();
+        }
+    }
+}
+
+===== Controllers\RouteAttribute.cs =====
+﻿
+namespace Controllers
+{
+    internal class RouteAttribute : Attribute
+    {
+    }
+}
+===== Models\Instrument.cs =====
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
+namespace TradeManagement.Models
+{
+    public class Instrument
+    {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; } = null!;
+
+        [BsonElement("name")]
+        public string Name { get; set; } = null!;
+
+        [BsonElement("symbol")]
+        public string Symbol { get; set; } = null!;
+
+        [BsonElement("price")]
+        public decimal Price { get; set; }
+    }
+}
+
+===== Models\LoginRequest.cs =====
+﻿namespace TradeManagement.Models
+{
+    public class LoginRequest
+    {
+        public string Username { get; set; } = null!;
+        public string Password { get; set; } = null!;
+    }
+}
+
+===== Models\Order.cs =====
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
+
+namespace TradeManagement.Models
+{
+    public class Order
+    {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; } = null!;
+
+        [BsonElement("userId")]
+        public string UserId { get; set; } = null!;
+
+        [BsonElement("tradeId")]
+        public string TradeId { get; set; } = null!;
+
+        [BsonElement("orderType")]
+        public string OrderType { get; set; } = "Buy"; // Buy or Sell
+
+        [BsonElement("quantity")]
+        public int Quantity { get; set; }
+
+        [BsonElement("orderDate")]
+        public DateTime OrderDate { get; set; } = DateTime.UtcNow;
+    }
+}
+
+===== Models\Portfolio.cs =====
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System.Collections.Generic;
+
+namespace TradeManagement.Models
+{
+    public class Portfolio
+    {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; } = null!;
+
+        [BsonElement("userId")]
+        public string UserId { get; set; } = null!; // restrict access
+
+        [BsonElement("trades")]
+        public List<string> TradeIds { get; set; } = new List<string>();
+
+        [BsonElement("totalValue")]
+        public decimal TotalValue { get; set; } = 0;
+    }
+}
+
+===== Models\Trade.cs =====
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
+
+namespace TradeManagement.Models
+{
+    public class Trade
+    {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; } = null!;
+
+        [BsonElement("userId")]
+        public string UserId { get; set; } = null!; // restrict access
+
+        [BsonElement("instrumentId")]
+        public string InstrumentId { get; set; } = null!;
+
+        [BsonElement("quantity")]
+        public int Quantity { get; set; }
+
+        [BsonElement("price")]
+        public decimal Price { get; set; }
+
+        [BsonElement("tradeDate")]
+        public DateTime TradeDate { get; set; } = DateTime.UtcNow;
+    }
+}
+
+===== Models\User.cs =====
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
+namespace TradeManagement.Models
+{
+    public class User
+    {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; } = null!;
+
+        [BsonElement("name")]
+        public string Name { get; set; } = null!;
+
+        [BsonElement("email")]
+        public string Email { get; set; } = null!;
+
+        [BsonElement("username")]
+        public string Username { get; set; } = null!;
+
+        [BsonElement("password")]
+        public string Password { get; set; } = null!; // hashed using BCrypt
+
+        [BsonElement("role")]
+        public string Role { get; set; } = Roles.ReadOnly; // default role
+    }
+
+    public static class Roles
+    {
+        public const string Admin = "Admin";
+        public const string Trader = "Trader";
+        public const string ReadOnly = "ReadOnly";
+    }
+}
+
+===== Models\MongoDbSettings.cs =====
+﻿namespace TradeManagement.Models
+{
+    public class MongoDbSettings
+    {
+        public string ConnectionString { get; set; } = null!;
+        public string DatabaseName { get; set; } = null!;
+        public string UsersCollectionName { get; set; } = null!;
+        public string TradesCollectionName { get; set; } = null!;
+        public string OrdersCollectionName { get; set; } = null!;
+        public string InstrumentsCollectionName { get; set; } = null!;
+        public string PortfoliosCollectionName { get; set; } = null!;
+    }
+}
+
+===== Repository\IInstrumentRepository.cs =====
+﻿using TradeManagement.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace TradeManagement.Repositories
+{
+    public interface IInstrumentRepository
+    {
+        Task<IEnumerable<Instrument>> GetAllAsync();
+        Task<Instrument?> GetByIdAsync(string id);
+        Task<Instrument> CreateAsync(Instrument instrument);
+        Task<Instrument?> UpdateAsync(string id, Instrument instrument);
+        Task<bool> DeleteAsync(string id);
+    }
+}
+
+===== Repository\InstrumentRepository.cs =====
+﻿using MongoDB.Driver;
+using TradeManagement.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace TradeManagement.Repositories
+{
+    public class InstrumentRepository : IInstrumentRepository
+    {
+        private readonly IMongoCollection<Instrument> _instruments;
+
+        public InstrumentRepository(IMongoDatabase database, string collectionName = "Instruments")
+        {
+            _instruments = database.GetCollection<Instrument>(collectionName);
+        }
+
+        public async Task<IEnumerable<Instrument>> GetAllAsync() =>
+            await _instruments.Find(i => true).ToListAsync();
+
+        public async Task<Instrument?> GetByIdAsync(string id) =>
+            await _instruments.Find(i => i.Id == id).FirstOrDefaultAsync();
+
+        public async Task<Instrument> CreateAsync(Instrument instrument)
+        {
+            await _instruments.InsertOneAsync(instrument);
+            return instrument;
+        }
+
+        public async Task<Instrument?> UpdateAsync(string id, Instrument instrument)
+        {
+            var result = await _instruments.ReplaceOneAsync(i => i.Id == id, instrument);
+            return result.IsAcknowledged && result.ModifiedCount > 0 ? instrument : null;
+        }
+
+        public async Task<bool> DeleteAsync(string id)
+        {
+            var result = await _instruments.DeleteOneAsync(i => i.Id == id);
+            return result.IsAcknowledged && result.DeletedCount > 0;
+        }
+    }
+}
+
+===== Repository\IOrderRepository.cs =====
+﻿using TradeManagement.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace TradeManagement.Repositories
+{
+    public interface IOrderRepository
+    {
+        Task<IEnumerable<Order>> GetAllAsync();
+        Task<Order?> GetByIdAsync(string id);
+        Task<IEnumerable<Order>> GetByUserIdAsync(string userId);
+        Task<Order> CreateAsync(Order order);
+        Task<Order?> UpdateAsync(string id, Order order);
+        Task<bool> DeleteAsync(string id);
+    }
+}
+
+===== Repository\OrderRepository.cs =====
+﻿using MongoDB.Driver;
+using TradeManagement.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace TradeManagement.Repositories
+{
+    public class OrderRepository : IOrderRepository
+    {
+        private readonly IMongoCollection<Order> _orders;
+
+        public OrderRepository(IMongoDatabase database, string collectionName = "Orders")
+        {
+            _orders = database.GetCollection<Order>(collectionName);
+        }
+
+        // ---------------- Get All Orders ----------------
+        public async Task<IEnumerable<Order>> GetAllAsync() =>
+            await _orders.Find(o => true).ToListAsync();
+
+        // ---------------- Get Orders By User ----------------
+        public async Task<IEnumerable<Order>> GetByUserIdAsync(string userId) =>
+            await _orders.Find(o => o.UserId == userId).ToListAsync();
+
+        // ---------------- Get Order By ID ----------------
+        public async Task<Order?> GetByIdAsync(string id) =>
+            await _orders.Find(o => o.Id == id).FirstOrDefaultAsync();
+
+        // ---------------- Create Order ----------------
+        public async Task<Order> CreateAsync(Order order)
+        {
+            await _orders.InsertOneAsync(order);
+            return order;
+        }
+
+        // ---------------- Update Order ----------------
+        public async Task<Order?> UpdateAsync(string id, Order order)
+        {
+            var result = await _orders.ReplaceOneAsync(o => o.Id == id, order);
+            return result.IsAcknowledged && result.ModifiedCount > 0 ? order : null;
+        }
+
+        // ---------------- Delete Order ----------------
+        public async Task<bool> DeleteAsync(string id)
+        {
+            var result = await _orders.DeleteOneAsync(o => o.Id == id);
+            return result.IsAcknowledged && result.DeletedCount > 0;
+        }
+    }
+}
+
+===== Repository\IPortfolioRepository.cs =====
+﻿using TradeManagement.Models;
+using System.Threading.Tasks;
+
+namespace TradeManagement.Repositories
+{
+    public interface IPortfolioRepository
+    {
+        Task<Portfolio?> GetByUserIdAsync(string userId);
+        Task<Portfolio> CreateAsync(Portfolio portfolio);
+        Task<Portfolio?> UpdateAsync(string id, Portfolio portfolio);
+        Task<bool> DeleteAsync(string id);
+    }
+}
+
+===== Repository\PortfolioRepository.cs =====
+﻿using MongoDB.Driver;
+using TradeManagement.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace TradeManagement.Repositories
+{
+    public class PortfolioRepository : IPortfolioRepository
+    {
+        private readonly IMongoCollection<Portfolio> _portfolios;
+
+        public PortfolioRepository(IMongoDatabase database, string collectionName = "Portfolios")
+        {
+            _portfolios = database.GetCollection<Portfolio>(collectionName);
+        }
+
+        public async Task<Portfolio?> GetByUserIdAsync(string userId) =>
+            await _portfolios.Find(p => p.UserId == userId).FirstOrDefaultAsync();
+
+        public async Task<Portfolio> CreateAsync(Portfolio portfolio)
+        {
+            await _portfolios.InsertOneAsync(portfolio);
+            return portfolio;
+        }
+
+        public async Task<Portfolio?> UpdateAsync(string id, Portfolio portfolio)
+        {
+            var result = await _portfolios.ReplaceOneAsync(p => p.Id == id, portfolio);
+            return result.IsAcknowledged && result.ModifiedCount > 0 ? portfolio : null;
+        }
+
+        public async Task<bool> DeleteAsync(string id)
+        {
+            var result = await _portfolios.DeleteOneAsync(p => p.Id == id);
+            return result.IsAcknowledged && result.DeletedCount > 0;
+        }
+    }
+}
+
+===== Repository\ITradeRepository.cs =====
+﻿using TradeManagement.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace TradeManagement.Repositories
+{
+    public interface ITradeRepository
+    {
+        Task<IEnumerable<Trade>> GetAllAsync();
+        Task<Trade?> GetByIdAsync(string id);
+        Task<Trade> CreateAsync(Trade trade);
+        Task<Trade?> UpdateAsync(string id, Trade trade);
+        Task<bool> DeleteAsync(string id);
+        Task<IEnumerable<Trade>> GetByUserIdAsync(string userId); // for portfolio & user restriction
+    }
+}
+
+===== Repository\TradeRepository.cs =====
+using MongoDB.Driver;
+using TradeManagement.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace TradeManagement.Repositories
+{
+    public class TradeRepository : ITradeRepository
+    {
+        private readonly IMongoCollection<Trade> _trades;
+
+        public TradeRepository(IMongoDatabase database, string collectionName = "Trades")
+        {
+            _trades = database.GetCollection<Trade>(collectionName);
+        }
+
+        public async Task<IEnumerable<Trade>> GetAllAsync() =>
+            await _trades.Find(t => true).ToListAsync();
+
+        public async Task<Trade?> GetByIdAsync(string id) =>
+            await _trades.Find(t => t.Id == id).FirstOrDefaultAsync();
+
+        public async Task<Trade> CreateAsync(Trade trade)
+        {
+            await _trades.InsertOneAsync(trade);
+            return trade;
+        }
+
+        public async Task<Trade?> UpdateAsync(string id, Trade trade)
+        {
+            var result = await _trades.ReplaceOneAsync(t => t.Id == id, trade);
+            return result.IsAcknowledged && result.ModifiedCount > 0 ? trade : null;
+        }
+
+        public async Task<bool> DeleteAsync(string id)
+        {
+            var result = await _trades.DeleteOneAsync(t => t.Id == id);
+            return result.IsAcknowledged && result.DeletedCount > 0;
+        }
+
+        public async Task<IEnumerable<Trade>> GetByUserIdAsync(string userId) =>
+            await _trades.Find(t => t.UserId == userId).ToListAsync();
+    }
+}
+
+===== Repository\IUserRepository.cs =====
+﻿using TradeManagement.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace TradeManagement.Repositories
+{
+    public interface IUserRepository
+    {
+        Task<IEnumerable<User>> GetAllAsync();
+        Task<User?> GetByIdAsync(string id);
+        Task<User?> GetByUsernameAsync(string username); // for login
+        Task<User> CreateAsync(User user);
+        Task<User?> UpdateAsync(string id, User user);
+        Task<bool> DeleteAsync(string id);
+    }
+}
+
+===== Repository\UserRepository.cs =====
+﻿using MongoDB.Driver;
+using TradeManagement.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace TradeManagement.Repositories
+{
+    public class UserRepository : IUserRepository
+    {
+        private readonly IMongoCollection<User> _users;
+
+        public UserRepository(IMongoDatabase database, string collectionName = "Users")
+        {
+            _users = database.GetCollection<User>(collectionName);
+        }
+
+        public async Task<IEnumerable<User>> GetAllAsync() =>
+            await _users.Find(u => true).ToListAsync();
+
+        public async Task<User?> GetByIdAsync(string id) =>
+            await _users.Find(u => u.Id == id).FirstOrDefaultAsync();
+
+        public async Task<User?> GetByUsernameAsync(string username) =>
+            await _users.Find(u => u.Username == username).FirstOrDefaultAsync();
+
+        public async Task<User> CreateAsync(User user)
+        {
+            await _users.InsertOneAsync(user);
+            return user;
+        }
+
+        public async Task<User?> UpdateAsync(string id, User updatedUser)
+        {
+            var result = await _users.ReplaceOneAsync(u => u.Id == id, updatedUser);
+            return result.IsAcknowledged && result.ModifiedCount > 0 ? updatedUser : null;
+        }
+
+        public async Task<bool> DeleteAsync(string id)
+        {
+            var result = await _users.DeleteOneAsync(u => u.Id == id);
+            return result.IsAcknowledged && result.DeletedCount > 0;
+        }
+    }
+}
+
+===== Services\ITradeService.cs =====
+﻿using TradeManagement.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace TradeManagement.Services
+{
+    public interface ITradeService
+    {
+        // -------------------- Users --------------------
+        Task<IEnumerable<User>> GetAllUsersAsync();
+        Task<User?> GetUserByIdAsync(string id);
+        Task<User> CreateUserAsync(User user);
+        Task<User?> UpdateUserAsync(string id, User user);
+        Task<bool> DeleteUserAsync(string id);
+
+        // Authentication
+        Task<User?> AuthenticateUserAsync(string username, string password);
+
+        // -------------------- Trades --------------------
+        Task<IEnumerable<Trade>> GetAllTradesAsync();
+        Task<Trade?> GetTradeByIdAsync(string id);
+        Task<Trade> CreateTradeAsync(Trade trade);
+        Task<Trade?> UpdateTradeAsync(string id, Trade trade);
+        Task<bool> DeleteTradeAsync(string id);
+        Task<IEnumerable<Trade>> GetTradesByUserIdAsync(string userId);
+
+        // -------------------- Orders --------------------
+        Task<IEnumerable<Order>> GetOrdersByUserIdAsync(string userId);
+        Task<Order?> GetOrderByIdAsync(string id);
+        Task<Order> CreateOrderAsync(Order order);
+        Task<Order?> UpdateOrderAsync(string id, Order order);
+        Task<bool> DeleteOrderAsync(string id);
+
+        // -------------------- Instruments --------------------
+        Task<IEnumerable<Instrument>> GetAllInstrumentsAsync();
+        Task<Instrument?> GetInstrumentByIdAsync(string id);
+        Task<Instrument> CreateInstrumentAsync(Instrument instrument);
+        Task<Instrument?> UpdateInstrumentAsync(string id, Instrument instrument);
+        Task<bool> DeleteInstrumentAsync(string id);
+
+        // -------------------- Portfolios --------------------
+        Task<Portfolio?> GetPortfolioByUserIdAsync(string userId);
+        Task<Portfolio> CreatePortfolioAsync(Portfolio portfolio);
+        Task<Portfolio?> UpdatePortfolioAsync(string id, Portfolio portfolio);
+        Task<bool> DeletePortfolioAsync(string id);
+    }
+}
+
+===== Services\TradeService.cs =====
+﻿using TradeManagement.Models;
+using TradeManagement.Repositories;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using BCrypt.Net;
+
+namespace TradeManagement.Services
+{
+    public class TradeService : ITradeService
+    {
+        private readonly IUserRepository _userRepository;
+        private readonly ITradeRepository _tradeRepository;
+        private readonly IOrderRepository _orderRepository;
+        private readonly IInstrumentRepository _instrumentRepository;
+        private readonly IPortfolioRepository _portfolioRepository;
+
+        public TradeService(
+            IUserRepository userRepository,
+            ITradeRepository tradeRepository,
+            IOrderRepository orderRepository,
+            IInstrumentRepository instrumentRepository,
+            IPortfolioRepository portfolioRepository)
+        {
+            _userRepository = userRepository;
+            _tradeRepository = tradeRepository;
+            _orderRepository = orderRepository;
+            _instrumentRepository = instrumentRepository;
+            _portfolioRepository = portfolioRepository;
+        }
+
+        // ---------------- Users ----------------
+        public async Task<IEnumerable<User>> GetAllUsersAsync() => await _userRepository.GetAllAsync();
+
+        public async Task<User?> GetUserByIdAsync(string id) => await _userRepository.GetByIdAsync(id);
+
+        public async Task<User> CreateUserAsync(User user)
+        {
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            return await _userRepository.CreateAsync(user);
+        }
+
+        public async Task<User?> UpdateUserAsync(string id, User user)
+        {
+            if (!string.IsNullOrEmpty(user.Password))
+                user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            return await _userRepository.UpdateAsync(id, user);
+        }
+
+        public async Task<bool> DeleteUserAsync(string id) => await _userRepository.DeleteAsync(id);
+
+        public async Task<User?> AuthenticateUserAsync(string username, string password)
+        {
+            var user = await _userRepository.GetByUsernameAsync(username);
+            if (user != null && BCrypt.Net.BCrypt.Verify(password, user.Password))
+                return user;
+            return null;
+        }
+
+        // ---------------- Trades ----------------
+        public async Task<IEnumerable<Trade>> GetAllTradesAsync() => await _tradeRepository.GetAllAsync();
+
+        public async Task<Trade?> GetTradeByIdAsync(string id) => await _tradeRepository.GetByIdAsync(id);
+
+        public async Task<Trade> CreateTradeAsync(Trade trade) => await _tradeRepository.CreateAsync(trade);
+
+        public async Task<Trade?> UpdateTradeAsync(string id, Trade trade) => await _tradeRepository.UpdateAsync(id, trade);
+
+        public async Task<bool> DeleteTradeAsync(string id) => await _tradeRepository.DeleteAsync(id);
+
+        public async Task<IEnumerable<Trade>> GetTradesByUserIdAsync(string userId) => await _tradeRepository.GetByUserIdAsync(userId);
+
+        // ---------------- Orders ----------------
+        public async Task<IEnumerable<Order>> GetOrdersByUserIdAsync(string userId) => await _orderRepository.GetByUserIdAsync(userId);
+
+        public async Task<Order?> GetOrderByIdAsync(string id) => await _orderRepository.GetByIdAsync(id);
+
+        public async Task<Order> CreateOrderAsync(Order order) => await _orderRepository.CreateAsync(order);
+
+        public async Task<Order?> UpdateOrderAsync(string id, Order order) => await _orderRepository.UpdateAsync(id, order);
+
+        public async Task<bool> DeleteOrderAsync(string id) => await _orderRepository.DeleteAsync(id);
+
+        // ---------------- Instruments ----------------
+        public async Task<IEnumerable<Instrument>> GetAllInstrumentsAsync() => await _instrumentRepository.GetAllAsync();
+
+        public async Task<Instrument?> GetInstrumentByIdAsync(string id) => await _instrumentRepository.GetByIdAsync(id);
+
+        public async Task<Instrument> CreateInstrumentAsync(Instrument instrument) => await _instrumentRepository.CreateAsync(instrument);
+
+        public async Task<Instrument?> UpdateInstrumentAsync(string id, Instrument instrument) => await _instrumentRepository.UpdateAsync(id, instrument);
+
+        public async Task<bool> DeleteInstrumentAsync(string id) => await _instrumentRepository.DeleteAsync(id);
+
+        // ---------------- Portfolios ----------------
+        public async Task<Portfolio?> GetPortfolioByUserIdAsync(string userId) => await _portfolioRepository.GetByUserIdAsync(userId);
+
+        public async Task<Portfolio> CreatePortfolioAsync(Portfolio portfolio) => await _portfolioRepository.CreateAsync(portfolio);
+
+        public async Task<Portfolio?> UpdatePortfolioAsync(string id, Portfolio portfolio) => await _portfolioRepository.UpdateAsync(id, portfolio);
+
+        public async Task<bool> DeletePortfolioAsync(string id) => await _portfolioRepository.DeleteAsync(id);
+    }
+}
+
+===== Services\JwtService.cs =====
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using TradeManagement.Models;
+
+namespace TradeManagement.Services
+{
+    public class JwtService
+    {
+        private readonly IConfiguration _configuration;
+
+        public JwtService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        public string GenerateJwtToken(User user)
+        {
+            var key = _configuration["Jwt:Key"];
+            var issuer = _configuration["Jwt:Issuer"];
+            var audience = _configuration["Jwt:Audience"];
+
+            if (string.IsNullOrEmpty(key)) throw new Exception("JWT Key is missing in configuration.");
+
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id),
+                new Claim(JwtRegisteredClaimNames.UniqueName, user.Username),
+                new Claim(ClaimTypes.Role, user.Role),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: issuer,
+                audience: audience,
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(2),
+                signingCredentials: credentials
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+    }
+}
+
+===== TradeManagement\Program.cs =====
+﻿using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using TradeManagement.Models;
+using TradeManagement.Repositories;
+using TradeManagement.Services;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// --------------------- Configure MongoDB Settings ---------------------
+builder.Services.Configure<MongoDbSettings>(
+    builder.Configuration.GetSection(nameof(MongoDbSettings))
+);
+
+builder.Services.AddSingleton(sp =>
+    sp.GetRequiredService<IOptions<MongoDbSettings>>().Value
+);
+
+// --------------------- Add Repositories ---------------------
+builder.Services.AddSingleton<IUserRepository, UserRepository>();
+builder.Services.AddSingleton<ITradeRepository, TradeRepository>();
+builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
+builder.Services.AddSingleton<IInstrumentRepository, InstrumentRepository>();
+builder.Services.AddSingleton<IPortfolioRepository, PortfolioRepository>();
+
+// --------------------- Add Services ---------------------
+builder.Services.AddScoped<ITradeService, TradeService>();
+builder.Services.AddSingleton<JwtService>();
+
+// --------------------- JWT Authentication ---------------------
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+var key = Encoding.ASCII.GetBytes(jwtSettings["Key"]);
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        ClockSkew = TimeSpan.Zero
+    };
+});
+
+// --------------------- CORS ---------------------
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.WithOrigins(builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>())
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
+// --------------------- Controllers ---------------------
+builder.Services.AddControllers();
+
+// --------------------- Swagger/OpenAPI ---------------------
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Trade Management API",
+        Version = "v1",
+        Description = "API for managing users, trades, orders, instruments, and portfolios with role-based access"
+    });
+
+    // JWT Auth for Swagger
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "JWT Authorization header using the Bearer scheme. Example: 'Bearer {token}'"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new List<string>()
+        }
+    });
+});
+
+// --------------------- Build App ---------------------
+var app = builder.Build();
+
+// --------------------- Middleware ---------------------
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Trade Management API v1")
+    );
+}
+
+app.UseHttpsRedirection();
+app.UseCors("AllowAll");
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
+
+===== TradeManagement\Controllers\AuthController.cs =====
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+
+namespace TradeManagement.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AuthController : ControllerBase
+    {
+        private readonly IConfiguration _config;
+
+        public AuthController(IConfiguration config)
+        {
+            _config = config;
+        }
+
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] LoginRequest request)
+        {
+            if (string.IsNullOrWhiteSpace(request.Username) || string.IsNullOrWhiteSpace(request.Password))
+                return BadRequest("Username and Password are required");
+
+            // Hardcoded users and roles for testing
+            var users = new Dictionary<string, string>
+            {
+                { "User1", "Admin" },
+                { "User2", "Moderator" },
+                { "User3", "ReadOnly" }
+            };
+
+            // Simple password check (for demo only!)
+            if (!users.ContainsKey(request.Username) || request.Password != "password")
+                return Unauthorized("Invalid username or password");
+
+            var role = users[request.Username];
+
+            // Generate JWT token
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes("SuperSecretKeyForJwt123!@#");
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.Name, request.Username),
+                    new Claim(ClaimTypes.Role, role)
+                }),
+                Expires = DateTime.UtcNow.AddHours(1),
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature
+                )
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return Ok(new
+            {
+                Username = request.Username,
+                Role = role,
+                Token = tokenHandler.WriteToken(token),
+                Expiration = tokenDescriptor.Expires
+            });
+        }
+    }
+
+    // Simple login DTO
+    public class LoginRequest
+    {
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+    }
+}
+
+===== TradeManagement\Controllers\InstrumentsController.cs =====
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using TradeManagement.Models;
+using TradeManagement.Services;
+
+namespace TradeManagement.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    [Authorize]
+    public class InstrumentsController : ControllerBase
+    {
+        private readonly ITradeService _tradeService;
+
+        public InstrumentsController(ITradeService tradeService)
+        {
+            _tradeService = tradeService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllInstruments()
+        {
+            var instruments = await _tradeService.GetAllInstrumentsAsync();
+            return Ok(instruments);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetInstrumentById(string id)
+        {
+            var instrument = await _tradeService.GetInstrumentByIdAsync(id);
+            if (instrument == null) return NotFound();
+            return Ok(instrument);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin,Trader")]
+        public async Task<IActionResult> CreateInstrument([FromBody] Instrument instrument)
+        {
+            var created = await _tradeService.CreateInstrumentAsync(instrument);
+            return CreatedAtAction(nameof(GetInstrumentById), new { id = created.Id }, created);
+        }
+
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Trader")]
+        public async Task<IActionResult> UpdateInstrument(string id, [FromBody] Instrument instrument)
+        {
+            var updated = await _tradeService.UpdateInstrumentAsync(id, instrument);
+            if (updated == null) return NotFound();
+            return Ok(updated);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteInstrument(string id)
+        {
+            var result = await _tradeService.DeleteInstrumentAsync(id);
+            if (!result) return NotFound();
+            return NoContent();
+        }
+    }
+}
+
+===== TradeManagement\Controllers\OrdersController.cs =====
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using TradeManagement.Models;
+using TradeManagement.Services;
+
+namespace TradeManagement.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    [Authorize]
+    public class OrdersController : ControllerBase
+    {
+        private readonly ITradeService _tradeService;
+
+        public OrdersController(ITradeService tradeService)
+        {
+            _tradeService = tradeService;
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetOrdersByUserId(string userId)
+        {
+            var orders = await _tradeService.GetOrdersByUserIdAsync(userId);
+            return Ok(orders);
+        }
+
+        [HttpGet("order/{id}")]
+        public async Task<IActionResult> GetOrderById(string id)
+        {
+            var order = await _tradeService.GetOrderByIdAsync(id);
+            if (order == null) return NotFound();
+            return Ok(order);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin,Trader")]
+        public async Task<IActionResult> CreateOrder([FromBody] Order order)
+        {
+            var created = await _tradeService.CreateOrderAsync(order);
+            return CreatedAtAction(nameof(GetOrderById), new { id = created.Id }, created);
+        }
+
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Trader")]
+        public async Task<IActionResult> UpdateOrder(string id, [FromBody] Order order)
+        {
+            var updated = await _tradeService.UpdateOrderAsync(id, order);
+            if (updated == null) return NotFound();
+            return Ok(updated);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteOrder(string id)
+        {
+            var result = await _tradeService.DeleteOrderAsync(id);
+            if (!result) return NotFound();
+            return NoContent();
+        }
+    }
+}
+
+===== TradeManagement\Controllers\PortfolioController.cs =====
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using TradeManagement.Models;
+using TradeManagement.Services;
+
+namespace TradeManagement.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    [Authorize]
+    public class PortfolioController : ControllerBase
+    {
+        private readonly ITradeService _tradeService;
+
+        public PortfolioController(ITradeService tradeService)
+        {
+            _tradeService = tradeService;
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetPortfolioByUserId(string userId)
+        {
+            var portfolio = await _tradeService.GetPortfolioByUserIdAsync(userId);
+            if (portfolio == null) return NotFound();
+            return Ok(portfolio);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin,Trader")]
+        public async Task<IActionResult> CreatePortfolio([FromBody] Portfolio portfolio)
+        {
+            var created = await _tradeService.CreatePortfolioAsync(portfolio);
+            return CreatedAtAction(nameof(GetPortfolioByUserId), new { userId = created.UserId }, created);
+        }
+    }
+}
+
+===== TradeManagement\Controllers\TradesController.cs =====
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using TradeManagement.Models;
+using TradeManagement.Services;
+
+namespace TradeManagement.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    [Authorize]
+    public class TradesController : ControllerBase
+    {
+        private readonly ITradeService _tradeService;
+
+        public TradesController(ITradeService tradeService)
+        {
+            _tradeService = tradeService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllTrades()
+        {
+            var trades = await _tradeService.GetAllTradesAsync();
+            return Ok(trades);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetTradeById(string id)
+        {
+            var trade = await _tradeService.GetTradeByIdAsync(id);
+            if (trade == null) return NotFound();
+            return Ok(trade);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin,Trader")]
+        public async Task<IActionResult> CreateTrade([FromBody] Trade trade)
+        {
+            var created = await _tradeService.CreateTradeAsync(trade);
+            return CreatedAtAction(nameof(GetTradeById), new { id = created.Id }, created);
+        }
+
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Trader")]
+        public async Task<IActionResult> UpdateTrade(string id, [FromBody] Trade trade)
+        {
+            var updated = await _tradeService.UpdateTradeAsync(id, trade);
+            if (updated == null) return NotFound();
+            return Ok(updated);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteTrade(string id)
+        {
+            var result = await _tradeService.DeleteTradeAsync(id);
+            if (!result) return NotFound();
+            return NoContent();
+        }
+    }
+}
+
+===== TradeManagement\Controllers\UsersController.cs =====
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using TradeManagement.Models;
+using TradeManagement.Services;
+using TradeManagement.DTOs;
+
+namespace TradeManagement.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class UsersController : ControllerBase
+    {
+        private readonly ITradeService _tradeService;
+        private readonly JwtService _jwtService;
+
+        public UsersController(ITradeService tradeService, JwtService jwtService)
+        {
+            _tradeService = tradeService;
+            _jwtService = jwtService;
+        }
+
+        // ---------------- LOGIN ----------------
+        [HttpPost("login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        {
+            var user = await _tradeService.AuthenticateUserAsync(request.Username, request.Password);
+            if (user == null) return Unauthorized("Invalid username or password.");
+
+            var token = _jwtService.GenerateJwtToken(user);
+            return Ok(new { Token = token, Role = user.Role });
+        }
+
+        // ---------------- CREATE USER (Admin only) ----------------
+        [HttpPost("register")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Register([FromBody] User user)
+        {
+            var createdUser = await _tradeService.CreateUserAsync(user);
+            return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Id }, createdUser);
+        }
+
+        // ---------------- GET USER ----------------
+        [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,Trader,ReadOnly")]
+        public async Task<IActionResult> GetUserById(string id)
+        {
+            var user = await _tradeService.GetUserByIdAsync(id);
+            if (user == null) return NotFound();
+            return Ok(user);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await _tradeService.GetAllUsersAsync();
+            return Ok(users);
+        }
+
+        // ---------------- UPDATE USER ----------------
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Trader")]
+        public async Task<IActionResult> UpdateUser(string id, [FromBody] User updatedUser)
+        {
+            var user = await _tradeService.UpdateUserAsync(id, updatedUser);
+            if (user == null) return NotFound();
+            return Ok(user);
+        }
+
+        // ---------------- DELETE USER ----------------
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var result = await _tradeService.DeleteUserAsync(id);
+            if (!result) return NotFound();
+            return NoContent();
+        }
+    }
+}
+
+===== TradeManagement\DTOs\UserResponseDto.cs =====
+﻿namespace TradeManagement.DTOs
+{
+    public class UserResponseDto
+    {
+        public string Id { get; set; } = null!;
+        public string Name { get; set; } = null!;
+        public string Email { get; set; } = null!;
+        public string Username { get; set; } = null!;
+        public string Role { get; set; } = null!;
+    }
+}
+
+===== TradeManagement\appsettings.json =====
+{
+    "Logging": {
+        "LogLevel": {
+            "Default": "Information",
+            "Microsoft.AspNetCore": "Warning"
+        }
+    },
+    "AllowedHosts": "*",
+    "MongoDbSettings": {
+        "ConnectionString": "mongodb+srv://tradeuser:PoOHKhc5PAluxC8n@cluster0.vni3hze.mongodb.net/?retryWrites=true&w=majority",
+        "DatabaseName": "TradeManagementDB",
+        "UsersCollectionName": "Users",
+        "TradesCollectionName": "Trades",
+        "OrdersCollectionName": "Orders",
+        "InstrumentsCollectionName": "Instruments",
+        "PortfoliosCollectionName": "Portfolios"
+    },
+    "Jwt": {
+        "Key": "MyUltraSecretDevelopmentKey1234567890!",
+        "Issuer": "TradeManagementAPI",
+        "Audience": "TradeManagementClient",
+        "ExpireMinutes": 60
+    },
+    "Cors": {
+        "AllowedOrigins": [ "http://localhost:53621", "http://localhost:53620" ]
+    }
+}
+
+===== TradeManagement\appsettings.Development.json =====
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  }
+}
+
+===== TradeManagement\Properties\launchSettings.json =====
+{
+    "profiles": {
+        "TradeManagement": {
+            "commandName": "Project",
+            "launchBrowser": true,
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "applicationUrl": "https://localhost:53620;http://localhost:53621"
+        }
+    }
+}
+
+===== TradeManagement.Test\ControllersTests.cs =====
+﻿using Moq;
+using TradeManagement.Controllers;
+using TradeManagement.Models;
+using TradeManagement.Services;
+using Microsoft.AspNetCore.Mvc;
+using Xunit;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace TradeManagement.Test
+{
+    public class ControllersTests
+    {
+        private readonly Mock<ITradeService> _mockService = new();
+
+        [Fact]
+        public async Task UsersController_GetAllUsers_ShouldReturnOk()
+        {
+            _mockService.Setup(s => s.GetAllUsersAsync())
+                        .ReturnsAsync(new List<User> { new User { Id = "u1", Name = "Alice" } });
+
+            var controller = new UsersController(_mockService.Object);
+            var result = await controller.GetUsers();
+
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var users = Assert.IsType<List<User>>(okResult.Value);
+            Assert.Single(users);
+        }
+
+        [Fact]
+        public async Task TradesController_GetAllTrades_ShouldReturnEmptyList()
+        {
+            _mockService.Setup(s => s.GetAllTradesAsync())
+                        .ReturnsAsync(new List<Trade>());
+
+            var controller = new TradesController(_mockService.Object);
+            var result = await controller.GetAllTrades();
+
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var trades = Assert.IsType<List<Trade>>(okResult.Value);
+            Assert.Empty(trades);
+        }
+
+        [Fact]
+        public async Task UsersController_GetUserById_ShouldReturnNotFound()
+        {
+            _mockService.Setup(s => s.GetUserByIdAsync("invalid"))
+                        .ReturnsAsync((User?)null); // ✅ explicitly nullable
+
+            var controller = new UsersController(_mockService.Object);
+            var result = await controller.GetUser("invalid");
+
+            Assert.IsType<NotFoundResult>(result);
+        }
+    }
+}
+
+===== TradeManagement.Test\ModelsTests.cs =====
+using TradeManagement.Models;
+using Xunit;
+
+namespace TradeManagement.Test
+{
+    public class ModelsTests
+    {
+        [Fact]
+        public void CreateUser_ShouldSetProperties()
+        {
+            var user = new User { Id = "1", Name = "Alice", Email = "alice@example.com" };
+            Assert.Equal("1", user.Id);
+            Assert.Equal("Alice", user.Name);
+            Assert.Equal("alice@example.com", user.Email);
+        }
+
+        [Fact]
+        public void CreateOrder_ShouldSetProperties()
+        {
+            var order = new Order
+            {
+                Id = "1",
+                InstrumentId = "inst1",
+                Quantity = 10,
+                Price = 100.5m,
+                OrderType = "Buy",
+                UserId = "user1"
+            };
+
+            Assert.Equal("1", order.Id);
+            Assert.Equal("inst1", order.InstrumentId);
+            Assert.Equal(10, order.Quantity);
+            Assert.Equal(100.5m, order.Price);
+            Assert.Equal("Buy", order.OrderType);
+            Assert.Equal("user1", order.UserId);
+        }
+
+        [Fact]
+        public void CreateTrade_ShouldSetProperties()
+        {
+            var trade = new Trade
+            {
+                Id = "1",
+                OrderId = "order1",
+                Quantity = 5,
+                Price = 50m
+            };
+
+            Assert.Equal("1", trade.Id);
+            Assert.Equal("order1", trade.OrderId);
+            Assert.Equal(5, trade.Quantity);
+            Assert.Equal(50m, trade.Price);
+        }
+    }
+}
+
+===== TradeManagement.Test\RepositoriesTests.cs =====
+﻿using Moq;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using TradeManagement.Models;
+using TradeManagement.Repositories;
+using Xunit;
+
+namespace TradeManagement.Test
+{
+    public class RepositoriesTests
+    {
+        [Fact]
+        public async Task UserRepository_GetAll_ShouldReturnUsers()
+        {
+            var mockRepo = new Mock<IUserRepository>();
+            mockRepo.Setup(r => r.GetAllAsync())
+                .ReturnsAsync(new List<User>
+                {
+                    new User { Id = "1", Name = "Alice" },
+                    new User { Id = "2", Name = "Bob" }
+                });
+
+            var users = await mockRepo.Object.GetAllAsync();
+            Assert.NotNull(users);
+            Assert.Equal(2, users.Count());
+            Assert.Equal("Alice", users.First().Name);
+        }
+
+        [Fact]
+        public async Task PortfolioRepository_GetByUserId_ShouldReturnPortfolio()
+        {
+            var mockRepo = new Mock<IPortfolioRepository>();
+            mockRepo.Setup(r => r.GetByUserIdAsync("user1"))
+                .ReturnsAsync((Portfolio?)new Portfolio { Id = "1", UserId = "user1" });
+
+            var portfolio = await mockRepo.Object.GetByUserIdAsync("user1");
+            Assert.NotNull(portfolio);
+            Assert.Equal("user1", portfolio?.UserId);
+        }
+    }
+}
+
+===== TradeManagement.Test\ServicesTests.cs =====
+using Moq;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using TradeManagement.Models;
+using TradeManagement.Repositories;
+using TradeManagement.Services;
+using Xunit;
+
+namespace TradeManagement.Test
+{
+    public class ServicesTests
+    {
+        private readonly Mock<IUserRepository> mockUserRepo;
+        private readonly Mock<ITradeRepository> mockTradeRepo;
+        private readonly Mock<IOrderRepository> mockOrderRepo;
+        private readonly Mock<IInstrumentRepository> mockInstrumentRepo;
+        private readonly Mock<IPortfolioRepository> mockPortfolioRepo;
+        private readonly Mock<ILogger<TradeService>> mockLogger;
+        private readonly TradeService service;
+
+        public ServicesTests()
+        {
+            mockUserRepo = new Mock<IUserRepository>();
+            mockTradeRepo = new Mock<ITradeRepository>();
+            mockOrderRepo = new Mock<IOrderRepository>();
+            mockInstrumentRepo = new Mock<IInstrumentRepository>();
+            mockPortfolioRepo = new Mock<IPortfolioRepository>();
+            mockLogger = new Mock<ILogger<TradeService>>();
+
+            service = new TradeService(
+                mockUserRepo.Object,
+                mockTradeRepo.Object,
+                mockOrderRepo.Object,
+                mockInstrumentRepo.Object,
+                mockPortfolioRepo.Object,
+                mockLogger.Object
+            );
+        }
+
+        [Fact]
+        public async Task GetAllUsersAsync_ShouldReturnUsers()
+        {
+            mockUserRepo.Setup(r => r.GetAllAsync())
+                .ReturnsAsync(new List<User>
+                {
+                    new User { Id = "1", Name = "Alice" }
+                });
+
+            var users = await service.GetAllUsersAsync();
+            Assert.Single(users);
+            Assert.Equal("Alice", users.First().Name);
+        }
+
+        [Fact]
+        public async Task GetTradeByIdAsync_ShouldReturnTrade()
+        {
+            // Cast to Trade? to match the nullable return type
+            mockTradeRepo.Setup(r => r.GetByIdAsync("1"))
+                .ReturnsAsync((Trade?)new Trade { Id = "1", Quantity = 10 });
+
+            var trade = await service.GetTradeByIdAsync("1");
+            Assert.NotNull(trade);
+            Assert.Equal(10, trade?.Quantity);
+        }
+
+        [Fact]
+        public async Task GetTradeByIdAsync_InvalidId_ShouldReturnNull()
+        {
+            mockTradeRepo.Setup(r => r.GetByIdAsync("invalid"))
+                .ReturnsAsync((Trade?)null);
+
+            var trade = await service.GetTradeByIdAsync("invalid");
+            Assert.Null(trade);
+        }
+    }
+}
+

@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TradeManagement.Models;
-using TradeManagement.Services;
+using TradeManagement.Repositories;
 
 namespace TradeManagement.Controllers
 {
@@ -8,68 +9,19 @@ namespace TradeManagement.Controllers
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly TradeService _tradeService;
+        private readonly IUserRepository _userRepo;
 
-        public UsersController(TradeService tradeService)
+        public UsersController(IUserRepository userRepo)
         {
-            _tradeService = tradeService;
+            _userRepo = userRepo;
         }
 
-        // POST api/users
-        [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] User user)
-        {
-            await _tradeService.CreateUserAsync(user);
-            return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
-        }
-
-        // GET api/users/{id}
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(string id)
-        {
-            var user = await _tradeService.GetUserByIdAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return Ok(user);
-        }
-
-        // GET api/users
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllUsers()
         {
-            var users = await _tradeService.GetAllUsersAsync();
-            return Ok(users);
-        }
-
-        // PUT api/users/{id}
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(string id, [FromBody] User updatedUser)
-        {
-            var user = await _tradeService.GetUserByIdAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            updatedUser.Id = user.Id;
-            await _tradeService.UpdateUserAsync(id, updatedUser);
-            return NoContent();
-        }
-
-        // DELETE api/users/{id}
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(string id)
-        {
-            var user = await _tradeService.GetUserByIdAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            await _tradeService.RemoveUserAsync(id);
-            return NoContent();
+            var users = await _userRepo.GetAllUsersAsync();
+            return Ok(users.Select(u => new { u.Id, u.Username, u.Roles }));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using TradeManagement.Models;
 using TradeManagement.Services;
 
@@ -6,84 +7,54 @@ namespace TradeManagement.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "Admin,Trader")]
     public class OrdersController : ControllerBase
     {
-        private readonly TradeService _tradeService;
+        private readonly ITradeService _tradeService;
 
-        public OrdersController(TradeService tradeService)
+        public OrdersController(ITradeService tradeService)
         {
             _tradeService = tradeService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> PlaceOrder(Order newOrder)
+        [HttpGet]
+        [Authorize(Roles = "Admin,Trader,User")]
+        public async Task<IActionResult> GetAllOrders()
         {
-            var user = await _tradeService.GetUserByIdAsync(newOrder.UserId);
-            if (user == null)
-            {
-                return BadRequest("User not found.");
-            }
-
-            var instruments = await _tradeService.GetInstrumentsAsync();
-            var instrument = instruments.FirstOrDefault(i => i.Symbol == newOrder.Symbol);
-            if (instrument == null)
-            {
-                return BadRequest("Instrument not found.");
-            }
-
-            // Simple Buy/Sell logic
-            if (newOrder.Type.ToUpper() == "BUY")
-            {
-                var cost = newOrder.Quantity * instrument.Price;
-                if (user.Balance < cost)
-                {
-                    return BadRequest("Insufficient funds.");
-                }
-                user.Balance -= cost;
-
-                // Update portfolio
-                var portfolio = await _tradeService.GetPortfolioAsync(user.Id);
-                if (portfolio == null)
-                {
-                    portfolio = new Portfolio { UserId = user.Id, Holdings = new List<Holding>() };
-                    await _tradeService.CreatePortfolioAsync(portfolio);
-                }
-
-                var holding = portfolio.Holdings.FirstOrDefault(h => h.Symbol == newOrder.Symbol);
-                if (holding != null)
-                {
-                    holding.Quantity += newOrder.Quantity;
-                }
-                else
-                {
-                    portfolio.Holdings.Add(new Holding { Symbol = newOrder.Symbol, Quantity = newOrder.Quantity });
-                }
-                await _tradeService.UpdatePortfolioAsync(user.Id, portfolio);
-            }
-            else if (newOrder.Type.ToUpper() == "SELL")
-            {
-                var portfolio = await _tradeService.GetPortfolioAsync(user.Id);
-                var holding = portfolio?.Holdings.FirstOrDefault(h => h.Symbol == newOrder.Symbol);
-                if (holding == null || holding.Quantity < newOrder.Quantity)
-                {
-                    return BadRequest("Not enough shares to sell.");
-                }
-                user.Balance += newOrder.Quantity * instrument.Price;
-                holding.Quantity -= newOrder.Quantity;
-                await _tradeService.UpdatePortfolioAsync(user.Id, portfolio);
-            }
-
-            await _tradeService.UpdateUserAsync(user.Id, user);
-            await _tradeService.CreateOrderAsync(newOrder);
-
-            return CreatedAtAction(nameof(GetUserOrders), new { userId = newOrder.UserId }, newOrder);
+            var orders = await _tradeService.GetAllOrdersAsync();
+            return Ok(orders);
         }
 
-        [HttpGet("{userId}")]
-        public async Task<ActionResult<List<Order>>> GetUserOrders(string userId)
+        [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,Trader,User")]
+        public async Task<IActionResult> GetOrderById(string id)
         {
-            var orders = await _tradeService.GetUserOrdersAsync(userId);
-            return orders;
+            var order = await _tradeService.GetOrderByIdAsync(id);
+            if (order == null) return NotFound();
+            return Ok(order);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateOrder([FromBody] Order order)
+        {
+            var created = await _tradeService.CreateOrderAsync(order);
+            return Ok(created);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateOrder(string id, [FromBody] Order order)
+        {
+            var success = await _tradeService.UpdateOrderAsync(id, order);
+            if (!success) return NotFound();
+            return Ok(order);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteOrder(string id)
+        {
+            var success = await _tradeService.DeleteOrderAsync(id);
+            if (!success) return NotFound();
+            return NoContent();
         }
     }
 }
